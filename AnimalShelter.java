@@ -2,41 +2,56 @@ package Queues;
 import java.util.LinkedList;
 
 public class AnimalShelter {
-    private LinkedList<Dog> dogs = new LinkedList<>();
-    private LinkedList<Cat> cats = new LinkedList<>();
+    private LinkedList<Animal> animals = new LinkedList<>();
+//    private LinkedList<Cat> cats = new LinkedList<>();
 
     public void enqueue(Animal animal) {
         if (animal instanceof Dog) {
-            dogs.addLast((Dog) animal);
+            animals.addLast((Dog) animal);
         } else if (animal instanceof Cat) {
-            cats.addLast((Cat) animal);
+            animals.addLast((Cat) animal);
         }
     }
 
     public Animal dequeueAny() {
-        if (dogs.isEmpty() && cats.isEmpty()) {
+        if (animals.isEmpty() && animals.isEmpty()) {
             return null;
-        } else if (dogs.isEmpty()) {
-            return cats.pollFirst();
-        } else if (cats.isEmpty()) {
-            return dogs.pollFirst();
+        } else if (animals.isEmpty()) {
+            return animals.pollFirst();
+        } else if (animals.isEmpty()) {
+            return animals.pollFirst();
         }
 
-        Dog oldestDog = dogs.peekFirst();
-        Cat oldestCat = cats.peekFirst();
+        Animal oldestDog = animals.peekFirst();
+        Animal oldestCat =  animals.peekFirst();
 
         if (oldestDog.getArrivalTime() < oldestCat.getArrivalTime()) {
-            return dogs.pollFirst();
+            return animals.pollFirst();
         } else {
-            return cats.pollFirst();
+            return animals.pollFirst();
         }
     }
 
     public Dog dequeueDog() {
-        return dogs.pollFirst();
+        return (Dog) animals.pollFirst();
     }
 
     public Cat dequeueCat() {
-        return cats.pollFirst();
+        return (Cat) animals.pollFirst();
+    }
+
+    public void printShelterList() {
+        System.out.println("Animals In Shelter");
+        if(animals.isEmpty()){
+            System.err.println("Shelter Has No Animals In It");
+        } else{
+            for(Animal animal: animals){
+
+                System.out.println(" Animal Name: "+ animal.getName() + " Animal Breed: "+  animal.getBreed());
+            }
+
+        }
+
+
     }
 }
